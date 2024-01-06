@@ -18,7 +18,6 @@ function PostForm({ post }) {
     });
   // Get the current user from Redux store.
   const user = useSelector((state) => state.auth.userData);
-
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
@@ -38,7 +37,7 @@ function PostForm({ post }) {
       data.featuredImage = file.$id;
       const newPost = await appwriteService.createPost({
         ...data,
-        userId: user.$id,
+        userId: user?.$id,
       });
       if (newPost) navigate(`/post/${newPost.$id}`);
     }
